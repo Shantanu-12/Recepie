@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block content%}
+<div class="container mt-5" >
+<form class="col-6 mx-auto card p-3 shadow p-3 mb-5 bg-white rounded" method="post" enctype="multipart/form-data" >
+ {% csrf_token %} 
+    <h1>Add Recepie</h1>
+    <hr>
+    <div class="mb-3" >
+      <label for="exampleInputRecepieNmae" class="form-label">Recepie Name</label>
+      <input  name="rcepie_name"  required type="text" class="form-control" >
+    </div>
+    <div class="mb-3">
+      <label for="exampleInputPassword1"  class="form-label">Recepie Description</label>
+      <textarea  name="recepie_description" required class="form-control"></textarea>
+    </div>
+    <div class="mb-3">
+        <label  for="exampleInputRecepieNmae"  class="form-label">Recepie Image</label>
+        <input name="recpie_image" type="file" class="form-control" >
+      </div>
+      <button type="submit" class="btn btn-primary">Add Recepie</button>
+
+
+  </form>
+</div>
+
+
+
+<table class="table mt-5 mx-auto" >
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Recepie Name</th>
+      <th scope="col">Recepie Desc</th>
+      <th scope="col">Image</th>
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for i in recepies%}
+    <tr>
+      <th scope="row">{{forloop.counter}}</th>
+      <td>{{i.rcepie_name}}</td>
+      <td>{{i.recepie_description}}</td>
+      <td>
+        <img src="/media/{{i.recpie_image}}" style="height: 100px"></td>
+        <td> <a href="/recepie_delete/{{i.id}}" class="btn btn-danger m-2">Delete</a>
+          <a href="/update_recepie/{{i.id}}" class="btn btn-success">Update</a>
+             
+        </td>
+
+
+    </tr>
+    {% endfor %}
+    
+  </tbody>
+</table>
+
+
+
+ {% endblock content%}
